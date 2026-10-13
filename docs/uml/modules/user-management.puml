@@ -1,24 +1,7 @@
 
-@startuml
-skinparam Padding 12
-skinparam ClassAttributeIconSize 0
-skinparam ClassFontSize 14
-skinparam ClassAttributeFontSize 14
-skinparam ClassFontStyle bold
-
-skinparam nodesep 50
-skinparam ranksep 70
-skinparam shadowing false
-skinparam roundcorner 12
-skinparam classBackgroundColor #eeeeee
-skinparam classBorderColor #444444
-skinparam classArrowColor #444444
-
-title Smart Community Services Platform - User Hierarchy
-header ICT602 - Software Engineering | Group 1 | MEL_S2_2026-1
-
-caption Figure 1: UML Class Diagram - User Inheritance Hierarchy
-
+' =========================================
+' USER MANAGEMENT MODULE
+' =========================================
 
 abstract class User {
   - userId: String
@@ -53,9 +36,11 @@ class Administrator {
   + manageUsers(): void
 }
 
+' =========================================
+' INHERITANCE RELATIONSHIPS
+' =========================================
+
 User <|-- Resident
 User <|-- CouncilEmployee
 User <|-- MaintenanceStaff
 User <|-- Administrator
-
-@enduml
