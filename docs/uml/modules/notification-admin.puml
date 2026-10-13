@@ -1,6 +1,6 @@
 
 ' =========================================
-' NOTIFICATIONS AND ADMINISTRATION MODULE
+' NOTIFICATIONS AND ADMINISTRATION
 ' =========================================
 
 package "Notifications and Administration" {
@@ -27,6 +27,29 @@ package "Notifications and Administration" {
     FAILED
   }
 
+  class SystemConfiguration {
+    - configurationId: String
+    - key: String
+    - value: String
+    --
+    + updateValue(value: String): void
+  }
+
+  class OperationalReport {
+    - reportId: String
+    - reportType: String
+    - generatedAt: LocalDateTime
+    --
+    + generate(): void
+  }
+}
+
+' =========================================
+' APPLICATION SERVICES AND INTEGRATIONS
+' =========================================
+
+package "Application Services and Integrations" {
+
   interface NotificationService {
     + send(user: User, message: String): void
   }
@@ -44,22 +67,6 @@ package "Notifications and Administration" {
     + logout(user: User): void
   }
 
-  class SystemConfiguration {
-    - configurationId: String
-    - key: String
-    - value: String
-    --
-    + updateValue(value: String): void
-  }
-
-  class OperationalReport {
-    - reportId: String
-    - reportType: String
-    - generatedAt: LocalDateTime
-    --
-    + generate(): void
-  }
-
   interface GISService {
     + validateLocation(location: Location): boolean
   }
@@ -73,21 +80,26 @@ package "Notifications and Administration" {
 ' RELATIONSHIPS
 ' =========================================
 
+' User notifications
 User "1" -- "0..*" Notification : receives
 
 Notification ..> NotificationType : uses
 Notification ..> NotificationStatus : uses
 
+' Notification implementations
 NotificationService <|.. EmailNotificationService
 NotificationService <|.. SMSNotificationService
 
 EmailNotificationService ..> Notification : delivers
 SMSNotificationService ..> Notification : delivers
 
+' Authentication
 AuthenticationService ..> User : authenticates
 
+' Administration
 Administrator "1" -- "0..*" SystemConfiguration : manages
 Administrator "1" -- "0..*" OperationalReport : generates
 
+' External integrations
 GISService ..> Location : validates
 PaymentGateway ..> Payment : processes

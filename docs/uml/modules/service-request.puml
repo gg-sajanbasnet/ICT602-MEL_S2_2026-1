@@ -5,6 +5,7 @@
 
 package "Service Request Management" {
 
+
   class ServiceRequest {
     - requestId: String
     - category: String
@@ -54,6 +55,11 @@ package "Service Request Management" {
   }
 }
 
+note right of Feedback
+  Feedback is permitted only
+  when the associated request
+  has status COMPLETED.
+end note
 ' =========================================
 ' SERVICE REQUEST RELATIONSHIPS
 ' =========================================

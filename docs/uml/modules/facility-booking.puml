@@ -13,7 +13,6 @@ package "Facility Booking Management" {
     - hourlyRate: BigDecimal
     - active: boolean
     --
-    + isAvailable(start: LocalDateTime, end: LocalDateTime): boolean
   }
 
   class FacilityBooking {
@@ -34,6 +33,12 @@ package "Facility Booking Management" {
     - status: PaymentStatus
     --
     + recordPayment(): void
+  }
+
+  class FacilityBookingService {
+    + checkAvailability(facility: Facility, start: LocalDateTime, end: LocalDateTime): boolean
+    + createBooking(resident: Resident, facility: Facility, start: LocalDateTime, end: LocalDateTime): FacilityBooking
+    + cancelBooking(booking: FacilityBooking): void
   }
 
   enum BookingStatus {
@@ -62,3 +67,14 @@ FacilityBooking "1" -- "0..1" Payment : payment
 
 FacilityBooking ..> BookingStatus : uses
 Payment ..> PaymentStatus : uses
+FacilityBookingService ..> Facility : checks availability
+FacilityBookingService ..> FacilityBooking : manages
+FacilityBookingService ..> Resident : books for
+
+note right of FacilityBookingService
+  A facility cannot have overlapping
+  confirmed bookings.
+
+  Booking start time must be
+  earlier than end time.
+end note
