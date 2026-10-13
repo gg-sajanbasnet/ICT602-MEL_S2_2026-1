@@ -1,1 +1,61 @@
-class-diagram.puml
+
+@startuml
+skinparam Padding 12
+skinparam ClassAttributeIconSize 0
+skinparam ClassFontSize 14
+skinparam ClassAttributeFontSize 14
+skinparam ClassFontStyle bold
+
+skinparam nodesep 50
+skinparam ranksep 70
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam classBackgroundColor #eeeeee
+skinparam classBorderColor #444444
+skinparam classArrowColor #444444
+
+title Smart Community Services Platform - User Hierarchy
+header ICT602 - Software Engineering | Group 1 | MEL_S2_2026-1
+
+caption Figure 1: UML Class Diagram - User Inheritance Hierarchy
+
+
+abstract class User {
+  - userId: String
+  - name: String
+  - email: String
+  - passwordHash: String
+  --
+  + updateProfile(): void
+}
+
+class Resident {
+  - address: String
+  - phone: String
+  + submitRequest(): void
+  + trackRequest(): void
+}
+
+class CouncilEmployee {
+  - employeeId: String
+  - department: String
+  + reviewRequest(): void
+  + assignTeam(): void
+}
+
+class MaintenanceStaff {
+  - staffId: String
+  + updateRequestStatus(): void
+}
+
+class Administrator {
+  - adminId: String
+  + manageUsers(): void
+}
+
+User <|-- Resident
+User <|-- CouncilEmployee
+User <|-- MaintenanceStaff
+User <|-- Administrator
+
+@enduml
