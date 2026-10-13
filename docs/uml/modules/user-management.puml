@@ -1,3 +1,4 @@
+
 package "User Management" {
 
   abstract class User {
@@ -6,35 +7,28 @@ package "User Management" {
     - email: String
     - passwordHash: String
     --
-    + updateProfile(): void
+    + updateProfile(name: String, email: String): void
   }
 
   class Resident {
     - address: String
     - phone: String
-    + submitRequest(): void
-    + trackRequest(): void
   }
 
   class CouncilEmployee {
     - employeeId: String
     - department: String
-    + reviewRequest(): void
-    + assignTeam(): void
   }
 
   class MaintenanceStaff {
     - staffId: String
-    + updateRequestStatus(): void
   }
 
   class Administrator {
     - adminId: String
-    + manageUsers(): void
   }
 }
 
-' Inheritance relationships
 User <|-- Resident
 User <|-- CouncilEmployee
 User <|-- MaintenanceStaff

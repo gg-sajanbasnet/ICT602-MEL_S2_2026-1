@@ -1,10 +1,5 @@
 
-' =========================================
-' SERVICE REQUEST MANAGEMENT MODULE
-' =========================================
-
 package "Service Request Management" {
-
 
   class ServiceRequest {
     - requestId: String
@@ -39,6 +34,15 @@ package "Service Request Management" {
     - submittedAt: LocalDateTime
   }
 
+  class ServiceRequestService {
+    + submitRequest(resident: Resident, category: String, description: String, location: Location): ServiceRequest
+    + reviewRequest(employee: CouncilEmployee, request: ServiceRequest, priority: RequestPriority): void
+    + assignRequest(employee: CouncilEmployee, request: ServiceRequest, team: MaintenanceTeam): void
+    + updateProgress(staff: MaintenanceStaff, request: ServiceRequest, status: RequestStatus): void
+    + submitFeedback(resident: Resident, request: ServiceRequest, rating: int, comment: String): Feedback
+    + trackRequest(requestId: String): RequestStatus
+  }
+
   enum RequestStatus {
     SUBMITTED
     UNDER_REVIEW
@@ -55,25 +59,48 @@ package "Service Request Management" {
   }
 }
 
-note right of Feedback
-  Feedback is permitted only
-  when the associated request
-  has status COMPLETED.
-end note
 ' =========================================
-' SERVICE REQUEST RELATIONSHIPS
+' DOMAIN RELATIONSHIPS
 ' =========================================
 
 Resident "1" -- "0..*" ServiceRequest : submits
 Resident "1" -- "0..*" Feedback : provides
 
 ServiceRequest "1" *-- "1" Location : has
+
 ServiceRequest "0..*" --> "0..1" MaintenanceTeam : assigned to
 ServiceRequest "1" -- "0..1" Feedback : receives
 
 MaintenanceTeam "0..1" -- "0..*" MaintenanceStaff : includes
-
 CouncilEmployee "0..1" -- "0..*" ServiceRequest : manages
 
 ServiceRequest ..> RequestStatus : uses
 ServiceRequest ..> RequestPriority : uses
+
+' =========================================
+' APPLICATION SERVICE DEPENDENCIES
+' =========================================
+
+ServiceRequestService ..> ServiceRequest : manages
+ServiceRequestService ..> Resident : receives reports from
+ServiceRequestService ..> CouncilEmployee : authorises reviews
+ServiceRequestService ..> MaintenanceStaff : authorises updates
+ServiceRequestService ..> MaintenanceTeam : assigns
+ServiceRequestService ..> Feedback : records
+
+' =========================================
+' BUSINESS RULES
+' =========================================
+
+note right of Feedback
+  Feedback can only be submitted
+  after a request is COMPLETED.
+end note
+
+note right of ServiceRequestService
+  Only council employees can
+  review, prioritise and assign.
+
+  Only authorised maintenance
+  staff can update progress.
+end note
