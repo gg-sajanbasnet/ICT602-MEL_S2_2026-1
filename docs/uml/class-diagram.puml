@@ -10,6 +10,7 @@ header ICT602 - Software Engineering | Group 1 | MEL_S2_2026-1
 !include modules/service-request.puml
 !include modules/facility-booking.puml
 !include modules/event-management.puml
+!include modules/notification-admin.puml
 
 ' Add other modules as we complete them
 

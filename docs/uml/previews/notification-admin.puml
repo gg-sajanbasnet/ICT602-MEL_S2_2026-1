@@ -1,0 +1,27 @@
+
+@startuml
+
+!include ../styles.puml
+
+title Smart Community Services Platform - Notifications and Administration
+header ICT602 - Software Engineering | Group 1 | MEL_S2_2026-1
+
+!include ../modules/notification-admin.puml
+
+hide Resident
+hide CouncilEmployee
+hide MaintenanceStaff
+
+hide ServiceRequest
+hide MaintenanceTeam
+hide Feedback
+hide RequestStatus
+hide RequestPriority
+hide Facility
+hide FacilityBooking
+hide BookingStatus
+hide PaymentStatus
+
+caption Notifications and Administration - UML Class Diagram
+
+@enduml

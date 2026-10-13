@@ -1,0 +1,93 @@
+
+' =========================================
+' NOTIFICATIONS AND ADMINISTRATION MODULE
+' =========================================
+
+package "Notifications and Administration" {
+
+  class Notification {
+    - notificationId: String
+    - message: String
+    - type: NotificationType
+    - status: NotificationStatus
+    - createdAt: LocalDateTime
+    --
+    + markAsSent(): void
+    + markAsFailed(): void
+  }
+
+  enum NotificationType {
+    EMAIL
+    SMS
+  }
+
+  enum NotificationStatus {
+    PENDING
+    SENT
+    FAILED
+  }
+
+  interface NotificationService {
+    + send(user: User, message: String): void
+  }
+
+  class EmailNotificationService {
+    + send(user: User, message: String): void
+  }
+
+  class SMSNotificationService {
+    + send(user: User, message: String): void
+  }
+
+  class AuthenticationService {
+    + authenticate(email: String, password: String): User
+    + logout(user: User): void
+  }
+
+  class SystemConfiguration {
+    - configurationId: String
+    - key: String
+    - value: String
+    --
+    + updateValue(value: String): void
+  }
+
+  class OperationalReport {
+    - reportId: String
+    - reportType: String
+    - generatedAt: LocalDateTime
+    --
+    + generate(): void
+  }
+
+  interface GISService {
+    + validateLocation(location: Location): boolean
+  }
+
+  interface PaymentGateway {
+    + processPayment(payment: Payment): boolean
+  }
+}
+
+' =========================================
+' RELATIONSHIPS
+' =========================================
+
+User "1" -- "0..*" Notification : receives
+
+Notification ..> NotificationType : uses
+Notification ..> NotificationStatus : uses
+
+NotificationService <|.. EmailNotificationService
+NotificationService <|.. SMSNotificationService
+
+EmailNotificationService ..> Notification : delivers
+SMSNotificationService ..> Notification : delivers
+
+AuthenticationService ..> User : authenticates
+
+Administrator "1" -- "0..*" SystemConfiguration : manages
+Administrator "1" -- "0..*" OperationalReport : generates
+
+GISService ..> Location : validates
+PaymentGateway ..> Payment : processes
