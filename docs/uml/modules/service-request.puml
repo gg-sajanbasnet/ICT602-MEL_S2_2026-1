@@ -1,5 +1,5 @@
 
-package "Service Request Management" {
+package "Service Request Management" #E3F2E5 {
 
   class ServiceRequest {
     - requestId: String

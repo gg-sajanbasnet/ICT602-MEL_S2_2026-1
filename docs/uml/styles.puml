@@ -8,7 +8,7 @@ skinparam nodesep 50
 skinparam ranksep 70
 skinparam shadowing false
 skinparam roundcorner 12
-skinparam classBackgroundColor #eeeeee
+skinparam classBackgroundColor #fefefe
 skinparam classBorderColor #444444
 skinparam classArrowColor #444444
 skinparam TitleFontSize 24

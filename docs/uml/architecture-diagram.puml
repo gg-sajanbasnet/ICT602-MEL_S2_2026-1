@@ -12,47 +12,69 @@ skinparam componentStyle rectangle
 skinparam packageStyle rectangle
 skinparam linetype ortho
 
-package "Presentation Layer" {
-  component "ConsoleUI" as UI
+skinparam nodesep 35
+skinparam ranksep 45
+
+' =========================================
+' PRESENTATION LAYER - BLUE
+' =========================================
+
+package "Presentation Layer" #DCEBFA {
+  component "ConsoleUI" as UI #B9D9F4
 }
 
-package "Application Layer" {
-  component "ServiceRequestService" as SRS
+' =========================================
+' APPLICATION LAYER - GREEN
+' =========================================
+
+package "Application Layer" #E3F2E5 {
+  component "ServiceRequestService" as SRS #BFE3C7
 }
 
-package "Domain Layer" {
-  component "ServiceRequest" as SR
-  component "Location" as LOC
-  component "Feedback" as FB
-  component "MaintenanceTeam" as MT
-  component "User and Role Classes" as USERS
-  component "RequestStatus / RequestPriority" as ENUMS
+' =========================================
+' DOMAIN LAYER - YELLOW
+' =========================================
+
+package "Domain Layer" #FFF1D6 {
+  component "Service Request Domain Model" as DOMAIN #F8DFA4
 }
 
-package "Persistence Layer" {
+' =========================================
+' PERSISTENCE LAYER - PURPLE
+' =========================================
+
+package "Persistence Layer" #EDE4F7 {
   interface "ServiceRequestRepository" as REPO
-  component "InMemoryServiceRequestRepository" as MEM
+  component "InMemoryServiceRequestRepository" as MEM #D8C4EF
 }
 
-UI --> SRS : invokes operations
+' =========================================
+' DEPENDENCIES
+' =========================================
 
-SRS --> SR : manages
-SRS --> LOC : validates location
-SRS --> FB : records feedback
-SRS --> MT : assigns team
-SRS --> USERS : checks roles
-SRS --> ENUMS : uses statuses
+UI -down-> SRS : invokes
 
-SRS --> REPO : saves / retrieves
+SRS -down-> DOMAIN : uses domain objects
+SRS -down-> REPO : saves / retrieves
+
 MEM ..|> REPO : implements
 
-note right of UI
-  Command-line interface
-  for the Java prototype
+' =========================================
+' NOTES
+' =========================================
+
+note right of DOMAIN
+  ServiceRequest
+  Location
+  Feedback
+  MaintenanceTeam
+  User and role classes
+  RequestStatus
+  RequestPriority
 end note
 
 note right of MEM
-  In-memory storage using
+  Stores requests using
   Java collections
 end note
 

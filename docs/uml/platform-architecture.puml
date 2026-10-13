@@ -1,0 +1,118 @@
+
+@startuml
+
+!include styles.puml
+
+title Smart Community Services Platform - Overall Software Architecture
+header ICT602 - Software Engineering | Group 1 | MEL_S2_2026-1
+
+top to bottom direction
+
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam nodesep 30
+skinparam ranksep 50
+
+' =========================================
+' PRESENTATION LAYER - BLUE
+' =========================================
+
+package "Presentation Layer" as PRESENTATION #DCEBFA {
+  component "Resident Portal" as RESIDENT_UI #B9D9F4
+  component "Council Staff Portal" as STAFF_UI #B9D9F4
+  component "Administration Portal" as ADMIN_UI #B9D9F4
+
+  RESIDENT_UI -[hidden]right- STAFF_UI
+  STAFF_UI -[hidden]right- ADMIN_UI
+}
+
+' =========================================
+' APPLICATION LAYER - GREEN
+' =========================================
+
+package "Application Layer" as APPLICATION #E3F2E5 {
+  component "Authentication\nand User Management" as AUTH #BFE3C7
+  component "Service Request\nManagement" as REQUEST #BFE3C7
+  component "Facility Booking\nManagement" as BOOKING #BFE3C7
+  component "Community Event\nManagement" as EVENT #BFE3C7
+  component "Notification\nManagement" as NOTIFY #BFE3C7
+  component "Administration\nand Reporting" as ADMIN #BFE3C7
+
+  AUTH -[hidden]right- REQUEST
+  REQUEST -[hidden]right- BOOKING
+
+  EVENT -[hidden]right- NOTIFY
+  NOTIFY -[hidden]right- ADMIN
+}
+
+' =========================================
+' DOMAIN LAYER - YELLOW
+' =========================================
+
+package "Domain Layer" as DOMAIN #FFF1D6 {
+  component "User and Roles" as USERS #F8DFA4
+  component "Service Requests\nand Feedback" as REQUEST_DOMAIN #F8DFA4
+  component "Facilities, Bookings\nand Payments" as BOOKING_DOMAIN #F8DFA4
+  component "Community Events\nand Registrations" as EVENT_DOMAIN #F8DFA4
+  component "Notifications\nand Configuration" as ADMIN_DOMAIN #F8DFA4
+
+USERS -[hidden]right- REQUEST_DOMAIN
+REQUEST_DOMAIN -[hidden]right- BOOKING_DOMAIN
+
+EVENT_DOMAIN -[hidden]right- ADMIN_DOMAIN
+
+USERS -[hidden]down- EVENT_DOMAIN
+REQUEST_DOMAIN -[hidden]down- ADMIN_DOMAIN
+}
+
+' =========================================
+' PERSISTENCE LAYER - PURPLE
+' =========================================
+
+package "Persistence Layer" as PERSISTENCE #EDE4F7 {
+  component "Repository Interfaces" as REPOSITORIES #D8C4EF
+  database "Platform Data Store" as DATASTORE #D8C4EF
+
+  REPOSITORIES --> DATASTORE : data access
+}
+
+' =========================================
+' EXTERNAL INTEGRATIONS - GREY
+' =========================================
+
+package "External Integrations" as EXTERNAL #E5EDF0 {
+  component "GIS Service" as GIS #D4E0E5
+  component "Payment Gateway" as PAYMENT #D4E0E5
+  component "Email / SMS Provider" as MESSAGING #D4E0E5
+
+  GIS -[hidden]right- PAYMENT
+  PAYMENT -[hidden]right- MESSAGING
+}
+
+' =========================================
+' LAYER DEPENDENCIES
+' =========================================
+
+PRESENTATION -down-> APPLICATION : invokes services
+
+APPLICATION -down-> DOMAIN : uses domain models
+
+APPLICATION -down-> PERSISTENCE : accesses repositories
+
+APPLICATION ..> EXTERNAL : integrates with
+
+' =========================================
+' ARCHITECTURAL NOTES
+' =========================================
+
+note right of PERSISTENCE
+  Proposed platform storage design.
+
+  Java prototype uses an
+  in-memory repository.
+end note
+
+caption Task 2 - Proposed Layered Architecture of the Complete Platform
+
+@enduml

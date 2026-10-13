@@ -1,5 +1,5 @@
 
-package "User Management" {
+package "User Management" #DCEBFA {
 
   abstract class User {
     - userId: String

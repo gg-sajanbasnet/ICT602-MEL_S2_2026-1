@@ -3,7 +3,7 @@
 ' NOTIFICATIONS AND ADMINISTRATION
 ' =========================================
 
-package "Notifications and Administration" {
+package "Notifications and Administration" #EDE4F7 {
 
   class Notification {
     - notificationId: String
@@ -48,7 +48,7 @@ package "Notifications and Administration" {
 ' APPLICATION SERVICES AND INTEGRATIONS
 ' =========================================
 
-package "Application Services and Integrations" {
+package "Application Services and Integrations" #E5EDF0 {
 
   interface NotificationService {
     + send(user: User, message: String): void

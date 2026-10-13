@@ -3,7 +3,7 @@
 ' COMMUNITY EVENT MANAGEMENT MODULE
 ' =========================================
 
-package "Community Event Management" {
+package "Community Event Management" #FCE4EC {
 
   class CommunityEvent {
     - eventId: String

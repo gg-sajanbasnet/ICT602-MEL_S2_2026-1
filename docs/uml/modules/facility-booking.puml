@@ -3,7 +3,7 @@
 ' FACILITY BOOKING MANAGEMENT MODULE
 ' =========================================
 
-package "Facility Booking Management" {
+package "Facility Booking Management" #FFF1D6 {
 
   class Facility {
     - facilityId: String
