@@ -1,0 +1,57 @@
+
+' =========================================
+' COMMUNITY EVENT MANAGEMENT MODULE
+' =========================================
+
+package "Community Event Management" {
+
+  class CommunityEvent {
+    - eventId: String
+    - title: String
+    - description: String
+    - venue: String
+    - startTime: LocalDateTime
+    - endTime: LocalDateTime
+    - capacity: int
+    - status: EventStatus
+    --
+    + publish(): void
+    + cancel(): void
+    + hasAvailablePlaces(): boolean
+  }
+
+  class EventRegistration {
+    - registrationId: String
+    - registeredAt: LocalDateTime
+    - status: RegistrationStatus
+    --
+    + confirm(): void
+    + cancel(): void
+  }
+
+  enum EventStatus {
+    DRAFT
+    PUBLISHED
+    CANCELLED
+    COMPLETED
+  }
+
+  enum RegistrationStatus {
+    PENDING
+    CONFIRMED
+    CANCELLED
+  }
+}
+
+' =========================================
+' EVENT MANAGEMENT RELATIONSHIPS
+' =========================================
+
+CouncilEmployee "1" -- "0..*" CommunityEvent : manages
+
+Resident "1" -- "0..*" EventRegistration : registers
+
+CommunityEvent "1" -- "0..*" EventRegistration : has
+
+CommunityEvent ..> EventStatus : uses
+EventRegistration ..> RegistrationStatus : uses
