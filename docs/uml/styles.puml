@@ -1,0 +1,19 @@
+skinparam Padding 12
+skinparam ClassAttributeIconSize 0
+skinparam ClassFontSize 14
+skinparam ClassAttributeFontSize 14
+skinparam ClassFontStyle bold
+
+skinparam nodesep 50
+skinparam ranksep 70
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam classBackgroundColor #eeeeee
+skinparam classBorderColor #444444
+skinparam classArrowColor #444444
+skinparam TitleFontSize 24
+skinparam TitleFontStyle bold
+skinparam CaptionFontSize 16
+skinparam CaptionFontStyle italic
+skinparam headerFontSize 12
+skinparam headerFontStyle bold

@@ -1,37 +1,16 @@
 
 @startuml
 
-' =========================================
-' DIAGRAM STYLING
-' =========================================
+!include styles.puml
 
-skinparam Padding 12
-skinparam ClassAttributeIconSize 0
-skinparam ClassFontSize 14
-skinparam ClassAttributeFontSize 14
-skinparam ClassFontStyle bold
-
-skinparam nodesep 50
-skinparam ranksep 70
-skinparam shadowing false
-skinparam roundcorner 12
-skinparam classBackgroundColor #eeeeee
-skinparam classBorderColor #444444
-skinparam classArrowColor #444444
-
-' =========================================
-' TITLE AND GROUP INFORMATION
-' =========================================
-
-title Smart Community Services Platform - User Hierarchy
+title Smart Community Services Platform - Conceptual Class Diagram
 header ICT602 - Software Engineering | Group 1 | MEL_S2_2026-1
 
-caption Figure 1: UML Class Diagram - User Inheritance Hierarchy
-
-' =========================================
-' UML MODULES
-' =========================================
-
 !include modules/user-management.puml
+!include modules/service-request.puml
+
+' Add other modules as we complete them
+
+caption Complete Conceptual UML Class Diagram
 
 @enduml
