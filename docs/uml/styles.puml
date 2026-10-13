@@ -17,3 +17,13 @@ skinparam CaptionFontSize 16
 skinparam CaptionFontStyle italic
 skinparam headerFontSize 12
 skinparam headerFontStyle bold
+
+' =========================================
+' PACKAGE STYLING
+' =========================================
+
+skinparam packageStyle rectangle
+skinparam PackageBackgroundColor #F8F9FA
+skinparam PackageBorderColor #888888
+skinparam PackageFontSize 16
+skinparam PackageFontStyle bold

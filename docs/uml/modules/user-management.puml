@@ -1,45 +1,40 @@
+package "User Management" {
 
-' =========================================
-' USER MANAGEMENT MODULE
-' =========================================
+  abstract class User {
+    - userId: String
+    - name: String
+    - email: String
+    - passwordHash: String
+    --
+    + updateProfile(): void
+  }
 
-abstract class User {
-  - userId: String
-  - name: String
-  - email: String
-  - passwordHash: String
-  --
-  + updateProfile(): void
+  class Resident {
+    - address: String
+    - phone: String
+    + submitRequest(): void
+    + trackRequest(): void
+  }
+
+  class CouncilEmployee {
+    - employeeId: String
+    - department: String
+    + reviewRequest(): void
+    + assignTeam(): void
+  }
+
+  class MaintenanceStaff {
+    - staffId: String
+    + updateRequestStatus(): void
+  }
+
+  class Administrator {
+    - adminId: String
+    + manageUsers(): void
+  }
 }
 
-class Resident {
-  - address: String
-  - phone: String
-  + submitRequest(): void
-  + trackRequest(): void
-}
-
-class CouncilEmployee {
-  - employeeId: String
-  - department: String
-  + reviewRequest(): void
-  + assignTeam(): void
-}
-
-class MaintenanceStaff {
-  - staffId: String
-  + updateRequestStatus(): void
-}
-
-class Administrator {
-  - adminId: String
-  + manageUsers(): void
-}
-
-' =========================================
-' INHERITANCE RELATIONSHIPS
-' =========================================
-
+' Inheritance relationships
 User <|-- Resident
 User <|-- CouncilEmployee
 User <|-- MaintenanceStaff

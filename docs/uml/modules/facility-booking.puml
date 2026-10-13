@@ -3,48 +3,51 @@
 ' FACILITY BOOKING MANAGEMENT MODULE
 ' =========================================
 
-class Facility {
-  - facilityId: String
-  - name: String
-  - description: String
-  - address: String
-  - hourlyRate: BigDecimal
-  - active: boolean
-  --
-  + isAvailable(start: LocalDateTime, end: LocalDateTime): boolean
-}
+package "Facility Booking Management" {
 
-class FacilityBooking {
-  - bookingId: String
-  - startTime: LocalDateTime
-  - endTime: LocalDateTime
-  - status: BookingStatus
-  - createdAt: LocalDateTime
-  --
-  + confirmBooking(): void
-  + cancelBooking(): void
-}
+  class Facility {
+    - facilityId: String
+    - name: String
+    - description: String
+    - address: String
+    - hourlyRate: BigDecimal
+    - active: boolean
+    --
+    + isAvailable(start: LocalDateTime, end: LocalDateTime): boolean
+  }
 
-class Payment {
-  - paymentId: String
-  - amount: BigDecimal
-  - transactionReference: String
-  - status: PaymentStatus
-  --
-  + recordPayment(): void
-}
+  class FacilityBooking {
+    - bookingId: String
+    - startTime: LocalDateTime
+    - endTime: LocalDateTime
+    - status: BookingStatus
+    - createdAt: LocalDateTime
+    --
+    + confirmBooking(): void
+    + cancelBooking(): void
+  }
 
-enum BookingStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
-}
+  class Payment {
+    - paymentId: String
+    - amount: BigDecimal
+    - transactionReference: String
+    - status: PaymentStatus
+    --
+    + recordPayment(): void
+  }
 
-enum PaymentStatus {
-  PENDING
-  SUCCESSFUL
-  FAILED
-  REFUNDED
+  enum BookingStatus {
+    PENDING
+    CONFIRMED
+    CANCELLED
+  }
+
+  enum PaymentStatus {
+    PENDING
+    SUCCESSFUL
+    FAILED
+    REFUNDED
+  }
 }
 
 ' =========================================

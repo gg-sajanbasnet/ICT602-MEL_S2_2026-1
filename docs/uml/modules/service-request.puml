@@ -2,52 +2,56 @@
 ' =========================================
 ' SERVICE REQUEST MANAGEMENT MODULE
 ' =========================================
-class ServiceRequest {
-  - requestId: String
-  - category: String
-  - description: String
-  - reportedAt: LocalDateTime
-  - status: RequestStatus
-  - priority: RequestPriority
-  --
-  + updateStatus(status: RequestStatus): void
-  + setPriority(priority: RequestPriority): void
-  + assignTeam(team: MaintenanceTeam): void
-}
 
-class Location {
-  - latitude: double
-  - longitude: double
-  - address: String
-}
+package "Service Request Management" {
 
-class MaintenanceTeam {
-  - teamId: String
-  - teamName: String
-  --
-  + addMember(staff: MaintenanceStaff): void
-}
+  class ServiceRequest {
+    - requestId: String
+    - category: String
+    - description: String
+    - reportedAt: LocalDateTime
+    - status: RequestStatus
+    - priority: RequestPriority
+    --
+    + updateStatus(status: RequestStatus): void
+    + setPriority(priority: RequestPriority): void
+    + assignTeam(team: MaintenanceTeam): void
+  }
 
-class Feedback {
-  - feedbackId: String
-  - rating: int
-  - comment: String
-  - submittedAt: LocalDateTime
-}
+  class Location {
+    - latitude: double
+    - longitude: double
+    - address: String
+  }
 
-enum RequestStatus {
-  SUBMITTED
-  UNDER_REVIEW
-  ASSIGNED
-  IN_PROGRESS
-  COMPLETED
-}
+  class MaintenanceTeam {
+    - teamId: String
+    - teamName: String
+    --
+    + addMember(staff: MaintenanceStaff): void
+  }
 
-enum RequestPriority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
+  class Feedback {
+    - feedbackId: String
+    - rating: int
+    - comment: String
+    - submittedAt: LocalDateTime
+  }
+
+  enum RequestStatus {
+    SUBMITTED
+    UNDER_REVIEW
+    ASSIGNED
+    IN_PROGRESS
+    COMPLETED
+  }
+
+  enum RequestPriority {
+    LOW
+    MEDIUM
+    HIGH
+    URGENT
+  }
 }
 
 ' =========================================
@@ -57,7 +61,7 @@ enum RequestPriority {
 Resident "1" -- "0..*" ServiceRequest : submits
 Resident "1" -- "0..*" Feedback : provides
 
-ServiceRequest "1" -- "1" Location : has
+ServiceRequest "1" *-- "1" Location : has
 ServiceRequest "0..*" --> "0..1" MaintenanceTeam : assigned to
 ServiceRequest "1" -- "0..1" Feedback : receives
 
