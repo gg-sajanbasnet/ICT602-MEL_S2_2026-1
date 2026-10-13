@@ -1,0 +1,61 @@
+
+' =========================================
+' FACILITY BOOKING MANAGEMENT MODULE
+' =========================================
+
+class Facility {
+  - facilityId: String
+  - name: String
+  - description: String
+  - address: String
+  - hourlyRate: BigDecimal
+  - active: boolean
+  --
+  + isAvailable(start: LocalDateTime, end: LocalDateTime): boolean
+}
+
+class FacilityBooking {
+  - bookingId: String
+  - startTime: LocalDateTime
+  - endTime: LocalDateTime
+  - status: BookingStatus
+  - createdAt: LocalDateTime
+  --
+  + confirmBooking(): void
+  + cancelBooking(): void
+}
+
+class Payment {
+  - paymentId: String
+  - amount: BigDecimal
+  - transactionReference: String
+  - status: PaymentStatus
+  --
+  + recordPayment(): void
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESSFUL
+  FAILED
+  REFUNDED
+}
+
+' =========================================
+' FACILITY BOOKING RELATIONSHIPS
+' =========================================
+
+Resident "1" -- "0..*" FacilityBooking : makes
+
+Facility "1" -- "0..*" FacilityBooking : reserved through
+
+FacilityBooking "1" -- "0..1" Payment : payment
+
+FacilityBooking ..> BookingStatus : uses
+Payment ..> PaymentStatus : uses

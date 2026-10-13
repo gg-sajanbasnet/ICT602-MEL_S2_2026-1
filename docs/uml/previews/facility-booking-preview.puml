@@ -1,0 +1,18 @@
+
+@startuml
+
+!include ../styles.puml
+
+title Smart Community Services Platform - Facility Booking Management
+header ICT602 - Software Engineering | Group 1 | MEL_S2_2026-1
+
+!include ../modules/user-management.puml
+!include ../modules/facility-booking.puml
+
+hide CouncilEmployee
+hide MaintenanceStaff
+hide Administrator
+
+caption Facility Booking Management - UML Class Diagram
+
+@enduml

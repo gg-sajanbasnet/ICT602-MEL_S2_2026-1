@@ -57,13 +57,13 @@ enum RequestPriority {
 Resident "1" -- "0..*" ServiceRequest : submits
 Resident "1" -- "0..*" Feedback : provides
 
-ServiceRequest "1" *-- "1" Location : has
+ServiceRequest "1" -- "1" Location : has
 ServiceRequest "0..*" --> "0..1" MaintenanceTeam : assigned to
 ServiceRequest "1" -- "0..1" Feedback : receives
 
 MaintenanceTeam "0..1" -- "0..*" MaintenanceStaff : includes
 
-CouncilEmployee "0..1" -- "0..*" ServiceRequest : reviews / assigns
+CouncilEmployee "0..1" -- "0..*" ServiceRequest : manages
 
 ServiceRequest ..> RequestStatus : uses
 ServiceRequest ..> RequestPriority : uses
