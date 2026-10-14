@@ -1,8 +1,4 @@
 
-' =========================================
-' FACILITY BOOKING MANAGEMENT MODULE
-' =========================================
-
 package "Facility Booking Management" #FFF1D6 {
 
   class Facility {
@@ -64,17 +60,3 @@ Resident "1" -- "0..*" FacilityBooking : makes
 Facility "1" -- "0..*" FacilityBooking : reserved through
 
 FacilityBooking "1" -- "0..1" Payment : payment
-
-FacilityBooking ..> BookingStatus : uses
-Payment ..> PaymentStatus : uses
-FacilityBookingService ..> Facility : checks availability
-FacilityBookingService ..> FacilityBooking : manages
-FacilityBookingService ..> Resident : books for
-
-note right of FacilityBookingService
-  A facility cannot have overlapping
-  confirmed bookings.
-
-  Booking start time must be
-  earlier than end time.
-end note

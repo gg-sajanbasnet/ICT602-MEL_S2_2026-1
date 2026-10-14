@@ -27,3 +27,15 @@ skinparam PackageBackgroundColor #F8F9FA
 skinparam PackageBorderColor #888888
 skinparam PackageFontSize 16
 skinparam PackageFontStyle bold
+skinparam PackageTitleAlignment center
+skinparam PackagePadding 20
+skinparam PackageShadowing false
+skinparam PackageRoundCorner 12
+
+<style>
+class {
+    header {
+        BackgroundColor #DCEBFA
+    }
+}
+</style>

@@ -1,6 +1,5 @@
 
 package "User Management" #DCEBFA {
-
   abstract class User {
     - userId: String
     - name: String

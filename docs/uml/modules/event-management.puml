@@ -52,6 +52,3 @@ CouncilEmployee "1" -- "0..*" CommunityEvent : manages
 Resident "1" -- "0..*" EventRegistration : registers
 
 CommunityEvent "1" -- "0..*" EventRegistration : has
-
-CommunityEvent ..> EventStatus : uses
-EventRegistration ..> RegistrationStatus : uses

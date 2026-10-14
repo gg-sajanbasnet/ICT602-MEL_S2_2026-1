@@ -48,58 +48,15 @@ package "Notifications and Administration" #EDE4F7 {
 ' APPLICATION SERVICES AND INTEGRATIONS
 ' =========================================
 
-package "Application Services and Integrations" #E5EDF0 {
-
-  interface NotificationService {
-    + send(user: User, message: String): void
-  }
-
-  class EmailNotificationService {
-    + send(user: User, message: String): void
-  }
-
-  class SMSNotificationService {
-    + send(user: User, message: String): void
-  }
-
-  class AuthenticationService {
-    + authenticate(email: String, password: String): User
-    + logout(user: User): void
-  }
-
-  interface GISService {
-    + validateLocation(location: Location): boolean
-  }
-
-  interface PaymentGateway {
-    + processPayment(payment: Payment): boolean
-  }
-}
 
 ' =========================================
 ' RELATIONSHIPS
 ' =========================================
 
-' User notifications
 User "1" -- "0..*" Notification : receives
 
-Notification ..> NotificationType : uses
-Notification ..> NotificationStatus : uses
 
-' Notification implementations
-NotificationService <|.. EmailNotificationService
-NotificationService <|.. SMSNotificationService
 
-EmailNotificationService ..> Notification : delivers
-SMSNotificationService ..> Notification : delivers
-
-' Authentication
-AuthenticationService ..> User : authenticates
-
-' Administration
 Administrator "1" -- "0..*" SystemConfiguration : manages
-Administrator "1" -- "0..*" OperationalReport : generates
 
-' External integrations
-GISService ..> Location : validates
-PaymentGateway ..> Payment : processes
+Administrator "1" -- "0..*" OperationalReport : generates

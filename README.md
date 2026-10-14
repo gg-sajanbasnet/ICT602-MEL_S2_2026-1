@@ -44,6 +44,7 @@ The Java application currently supports:
 - PlantUML for UML diagrams
 
 ## How to Run
+Clone the project to your device
 
 Make sure Java 21 or later is installed.
 

@@ -64,43 +64,21 @@ package "Service Request Management" #E3F2E5 {
 ' =========================================
 
 Resident "1" -- "0..*" ServiceRequest : submits
+
 Resident "1" -- "0..*" Feedback : provides
 
 ServiceRequest "1" *-- "1" Location : has
 
 ServiceRequest "0..*" --> "0..1" MaintenanceTeam : assigned to
+
 ServiceRequest "1" -- "0..1" Feedback : receives
 
 MaintenanceTeam "0..1" -- "0..*" MaintenanceStaff : includes
+
 CouncilEmployee "0..1" -- "0..*" ServiceRequest : manages
-
-ServiceRequest ..> RequestStatus : uses
-ServiceRequest ..> RequestPriority : uses
-
-' =========================================
-' APPLICATION SERVICE DEPENDENCIES
-' =========================================
-
-ServiceRequestService ..> ServiceRequest : manages
-ServiceRequestService ..> Resident : receives reports from
-ServiceRequestService ..> CouncilEmployee : authorises reviews
-ServiceRequestService ..> MaintenanceStaff : authorises updates
-ServiceRequestService ..> MaintenanceTeam : assigns
-ServiceRequestService ..> Feedback : records
 
 ' =========================================
 ' BUSINESS RULES
 ' =========================================
 
-note right of Feedback
-  Feedback can only be submitted
-  after a request is COMPLETED.
-end note
 
-note right of ServiceRequestService
-  Only council employees can
-  review, prioritise and assign.
-
-  Only authorised maintenance
-  staff can update progress.
-end note

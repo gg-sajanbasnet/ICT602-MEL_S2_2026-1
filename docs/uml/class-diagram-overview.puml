@@ -1,0 +1,204 @@
+
+@startuml
+
+!include styles.puml
+
+title Smart Community Services Platform - Conceptual Class Overview
+header ICT602 - Software Engineering | Group 1 | MEL_S2_2026-1
+
+top to bottom direction
+
+skinparam nodesep 25
+skinparam ranksep 35
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
+hide methods
+
+' =========================================
+' USER MANAGEMENT
+' =========================================
+
+package "User Management" #DCEBFA {
+
+  abstract class User {
+    - userId: String
+    - name: String
+    - email: String
+    - passwordHash: String
+  }
+
+  class Resident {
+    - address: String
+    - phone: String
+  }
+
+  class CouncilEmployee {
+    - employeeId: String
+    - department: String
+  }
+
+  class MaintenanceStaff {
+    - staffId: String
+  }
+
+  class Administrator {
+    - adminId: String
+  }
+}
+
+User <|-- Resident
+User <|-- CouncilEmployee
+User <|-- MaintenanceStaff
+User <|-- Administrator
+
+' =========================================
+' SERVICE REQUEST MANAGEMENT
+' =========================================
+
+package "Service Request Management" #E3F2E5 {
+
+  class ServiceRequest {
+    - requestId: String
+    - category: String
+    - description: String
+    - reportedAt: LocalDateTime
+    - status: RequestStatus
+    - priority: RequestPriority
+  }
+
+  class Location {
+    - latitude: double
+    - longitude: double
+    - address: String
+  }
+
+  class MaintenanceTeam {
+    - teamId: String
+    - teamName: String
+  }
+
+  class Feedback {
+    - feedbackId: String
+    - rating: int
+    - comment: String
+    - submittedAt: LocalDateTime
+  }
+}
+
+' Service request relationships
+
+Resident "1" -- "0..*" ServiceRequest
+
+ServiceRequest "1" *-- "1" Location
+
+ServiceRequest "0..*" --> "0..1" MaintenanceTeam
+
+ServiceRequest "1" -- "0..1" Feedback
+
+MaintenanceTeam "0..1" -- "0..*" MaintenanceStaff
+
+CouncilEmployee "0..1" -- "0..*" ServiceRequest
+
+' =========================================
+' FACILITY BOOKING MANAGEMENT
+' =========================================
+
+package "Facility Booking Management" #FFF1D6 {
+
+  class Facility {
+    - facilityId: String
+    - name: String
+    - hourlyRate: BigDecimal
+    - active: boolean
+  }
+
+  class FacilityBooking {
+    - bookingId: String
+    - startTime: LocalDateTime
+    - endTime: LocalDateTime
+    - status: BookingStatus
+  }
+
+  class Payment {
+    - paymentId: String
+    - amount: BigDecimal
+    - status: PaymentStatus
+  }
+}
+
+' Facility booking relationships
+
+Resident "1" -- "0..*" FacilityBooking
+
+Facility "1" -- "0..*" FacilityBooking
+
+FacilityBooking "1" -- "0..1" Payment
+
+' =========================================
+' COMMUNITY EVENT MANAGEMENT
+' =========================================
+
+package "Community Event Management" #FCE4EC {
+
+  class CommunityEvent {
+    - eventId: String
+    - title: String
+    - startTime: LocalDateTime
+    - endTime: LocalDateTime
+    - capacity: int
+    - status: EventStatus
+  }
+
+  class EventRegistration {
+    - registrationId: String
+    - registeredAt: LocalDateTime
+    - status: RegistrationStatus
+  }
+}
+
+' Community event relationships
+
+CouncilEmployee "1" -- "0..*" CommunityEvent
+
+Resident "1" -- "0..*" EventRegistration
+
+CommunityEvent "1" -- "0..*" EventRegistration
+
+' =========================================
+' NOTIFICATIONS AND ADMINISTRATION
+' =========================================
+
+package "Notifications and Administration" #EDE4F7 {
+
+  class Notification {
+    - notificationId: String
+    - message: String
+    - type: NotificationType
+    - status: NotificationStatus
+  }
+
+  class SystemConfiguration {
+    - configurationId: String
+    - key: String
+    - value: String
+  }
+
+  class OperationalReport {
+    - reportId: String
+    - reportType: String
+    - generatedAt: LocalDateTime
+  }
+}
+
+' Notification and administration relationships
+
+User "1" -- "0..*" Notification
+
+Administrator "1" -- "0..*" SystemConfiguration
+
+Administrator "1" -- "0..*" OperationalReport
+
+caption Simplified conceptual view of the platform domain model
+
+@enduml

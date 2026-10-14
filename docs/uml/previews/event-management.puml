@@ -2,6 +2,13 @@
 @startuml
 
 !include ../styles.puml
+<style>
+class {
+    header {
+        BackgroundColor #DCEBFA
+    }
+}
+</style>
 
 title Smart Community Services Platform - Community Event Management
 header ICT602 - Software Engineering | Group 1 | MEL_S2_2026-1

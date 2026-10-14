@@ -3,6 +3,11 @@
 
 !include styles.puml
 
+skinparam nodesep 25
+skinparam ranksep 35
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
 title Smart Community Services Platform - Conceptual Class Diagram
 header ICT602 - Software Engineering | Group 1 | MEL_S2_2026-1
 
@@ -12,7 +17,6 @@ header ICT602 - Software Engineering | Group 1 | MEL_S2_2026-1
 !include modules/event-management.puml
 !include modules/notification-admin.puml
 
-' Add other modules as we complete them
 
 caption Complete Conceptual UML Class Diagram
 

@@ -1,0 +1,29 @@
+
+@startuml
+title Service Request Management Workflow
+
+start
+
+|Resident|
+:Submit service request;
+:Status = SUBMITTED;
+
+|Council Employee|
+:Review service request;
+:Status = UNDER_REVIEW;
+:Assign maintenance team;
+:Status = ASSIGNED;
+
+|Maintenance Staff|
+:Start maintenance work;
+:Status = IN_PROGRESS;
+:Complete maintenance work;
+:Status = COMPLETED;
+
+|Resident|
+:Track completed request;
+:Submit feedback;
+
+stop
+
+@enduml
