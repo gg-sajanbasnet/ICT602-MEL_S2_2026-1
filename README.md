@@ -1,5 +1,8 @@
 # Smart Community Services Platform
 
+Sajan Basnet - 71445
+Jannatun Naim Ankhi - 70612
+
 ICT602 – Software Engineering  
 Assignment 3 – Part A
 
